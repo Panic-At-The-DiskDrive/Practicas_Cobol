@@ -19,4 +19,8 @@ Este es un ejemplo de Calculadora escrito en COBOL, usando GnuCOBOL y Visual Stu
   
 # Ejercicio 3  
 
-Este es un ejemplo basico de un login    
+Este es un ejemplo basico de un login.
+
+# Ejercicio 4  
+  
+Este es un ejemplo de un login compuesto, con registro.  
