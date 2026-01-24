@@ -70,5 +70,53 @@ Ejemplo usando GnuCOBOL:
 
 ```bash
 cobc -x gestion_usuarios.cbl
-./gestion_usuarios
+./gestion_usuarios  
+``` 
+
+# Ejercicio 6  
+  
+# Sistema de Gestión de Cuentas Bancarias – COBOL
+
+Este proyecto es un sistema básico de gestión de cuentas bancarias desarrollado en COBOL, orientado a la práctica de conceptos fundamentales del lenguaje aplicados a un dominio bancario clásico.
+
+El objetivo es simular operaciones esenciales de un sistema bancario legacy, manteniendo una estructura simple, clara y alineada con las buenas prácticas del lenguaje.
+
+## Funcionalidades
+
+El sistema permite:
+- Alta de cuentas bancarias
+- Consulta de cuentas por número
+- Depósitos de dinero
+- Extracciones con validación de saldo
+- Listado completo de cuentas
+- Salida del sistema
+
+Cada cuenta contiene:
+- Número de cuenta
+- Titular
+- Tipo de cuenta (CA / CC)
+- Saldo
+- Estado
+
+Los datos se almacenan en un archivo secuencial llamado `cuentas.dat`.
+
+## Estructura del proyecto
+
+- `gestion_cuentas_bancarias.cbl` → Programa principal en COBOL
+- `cuentas.dat` → Archivo secuencial generado por el sistema
+
+## Tecnologías
+
+- Lenguaje: COBOL
+- Persistencia: Archivo secuencial
+- Entorno recomendado: GnuCOBOL
+
+## Ejecución
+
+Ejemplo de compilación y ejecución con GnuCOBOL:
+
+```bash
+cobc -x gestion_cuentas_bancarias.cbl
+./gestion_cuentas_bancarias
+´´´  
 
