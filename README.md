@@ -118,5 +118,47 @@ Ejemplo de compilación y ejecución con GnuCOBOL:
 ```bash
 cobc -x gestion_cuentas_bancarias.cbl
 ./gestion_cuentas_bancarias
-´´´  
+```
 
+## Ejercicio 7  
+  
+# Sistema Bancario Simplificado – COBOL (v2)
+
+Este proyecto es una evolución de un sistema bancario básico desarrollado en COBOL, incorporando conceptos clásicos del dominio bancario como la separación entre archivo maestro y archivo de movimientos.
+
+El objetivo es practicar lógica de negocio bancaria real utilizando estructuras tradicionales del lenguaje.
+
+## Funcionalidades
+
+- Alta de cuentas bancarias
+- Consulta de cuentas
+- Depósitos
+- Extracciones con validación de saldo
+- Registro de movimientos
+- Listado de cuentas
+- Listado de movimientos
+
+## Archivos
+
+- `cuentas.dat` → Archivo maestro de cuentas
+- `movimientos.dat` → Archivo detalle con historial de operaciones
+
+Cada operación financiera genera un registro de movimiento con fecha, tipo, monto y saldo resultante.
+
+## Estructura
+
+- `sistema_bancario_v2.cbl` → Programa principal
+- Persistencia mediante archivos secuenciales
+
+## Tecnologías
+
+- Lenguaje: COBOL
+- Persistencia: Archivos secuenciales
+- Compilador recomendado: GnuCOBOL
+
+## Ejecución
+
+```bash
+cobc -x sistema_bancario_v2.cbl
+./sistema_bancario_v2
+```
