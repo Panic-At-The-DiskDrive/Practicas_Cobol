@@ -1,17 +1,16 @@
-# Ejecutables (Windows y Linux)
 *.exe
 *.out
 
-# Objetos y artefactos de compilación
 *.o
 *.obj
 
-# Archivos de lista y dumps
 *.lst
 *.map
 *.dmp
+*.stackdump
 
-# Archivos temporales comunes
 *.tmp
 *.temp
 *~
+
+*.stackdump
