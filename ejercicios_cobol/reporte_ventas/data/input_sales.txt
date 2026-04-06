@@ -1,0 +1,6 @@
+NORTH     Alice Johnson      00012000.50
+NORTH     Bob Smith          00008000.00
+NORTH     Carla Gomez        00005000.25
+SOUTH     Diego Perez        00020000.00
+SOUTH     Laura Diaz         00015000.75
+WEST      Martin Lopez       00030000.10
