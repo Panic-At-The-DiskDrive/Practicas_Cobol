@@ -1,5 +1,13 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. RECONCILE.
+       AUTHOR. SIMONETTA, DANIEL.
+       DATE-WRITTEN. 2026-05-06.
+
+      * ============================================
+      * PROJECT: BATCH RECONCILIATION SYSTEM
+      * AUTHOR : SIMONETTA, DANIEL
+      * DATE   : 2026-05-06
+      * ============================================
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
