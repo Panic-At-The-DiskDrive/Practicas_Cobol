@@ -1,0 +1,188 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CUENTAS.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+
+           SELECT ARCHIVO-CUENTAS
+               ASSIGN TO "../data/CUENTAS.DAT"
+               ORGANIZATION IS SEQUENTIAL
+               ACCESS MODE IS SEQUENTIAL
+               FILE STATUS IS WS-FILE-STATUS.
+
+       DATA DIVISION.
+       FILE SECTION.
+
+       FD  ARCHIVO-CUENTAS.
+       01  REGISTRO-CUENTA.
+           05  CUENTA-ID        PIC 9(6).
+           05  CUENTA-NOMBRE    PIC X(40).
+           05  CUENTA-SALDO     PIC S9(9)V99.
+           05  CUENTA-ACTIVA    PIC X.
+
+       WORKING-STORAGE SECTION.
+
+       01  WS-ACCION            PIC X(15).
+
+       01  WS-FILE-STATUS       PIC XX.
+
+       01  WS-CUENTA-BUSCAR     PIC 9(6).
+
+       01  WS-NUEVO-ID          PIC 9(6).
+
+       01  WS-NOMBRE            PIC X(40).
+
+       01  WS-SALDO             PIC S9(9)V99.
+
+       01  WS-ENCONTRADA         PIC X VALUE 'N'.
+
+       01  WS-FIN-ARCHIVO        PIC X VALUE 'N'.
+
+       PROCEDURE DIVISION USING WS-ACCION.
+
+       0000-INICIO.
+
+           EVALUATE WS-ACCION
+
+               WHEN "CREAR"
+                   PERFORM 1000-CREAR-CUENTA
+
+               WHEN "CONSULTAR"
+                   PERFORM 2000-CONSULTAR-CUENTA
+
+               WHEN "LISTAR"
+                   PERFORM 3000-LISTAR-CUENTAS
+
+           END-EVALUATE.
+
+           GOBACK.
+
+       1000-CREAR-CUENTA.
+
+           DISPLAY " "
+           DISPLAY "=== CREAR CUENTA ==="
+
+           DISPLAY "Ingrese ID de cuenta:"
+           ACCEPT WS-NUEVO-ID
+
+           DISPLAY "Ingrese nombre del titular:"
+           ACCEPT WS-NOMBRE
+
+           MOVE 0 TO WS-SALDO
+
+           MOVE 'S' TO CUENTA-ACTIVA
+
+           MOVE WS-NUEVO-ID TO CUENTA-ID
+           MOVE WS-NOMBRE TO CUENTA-NOMBRE
+           MOVE WS-SALDO TO CUENTA-SALDO
+
+           OPEN EXTEND ARCHIVO-CUENTAS
+
+           IF WS-FILE-STATUS NOT = "00"
+               OPEN OUTPUT ARCHIVO-CUENTAS
+           END-IF
+
+           WRITE REGISTRO-CUENTA
+
+           CLOSE ARCHIVO-CUENTAS
+
+           DISPLAY "Cuenta creada correctamente."
+           DISPLAY "ID: " CUENTA-ID
+           DISPLAY "Titular: " CUENTA-NOMBRE
+           DISPLAY "Saldo inicial: $0.00".
+
+       2000-CONSULTAR-CUENTA.
+
+           DISPLAY " "
+           DISPLAY "=== CONSULTAR CUENTA ==="
+
+           DISPLAY "Ingrese ID de cuenta:"
+           ACCEPT WS-CUENTA-BUSCAR
+
+           MOVE 'N' TO WS-ENCONTRADA
+           MOVE 'N' TO WS-FIN-ARCHIVO
+
+           OPEN INPUT ARCHIVO-CUENTAS
+
+           IF WS-FILE-STATUS NOT = "00"
+
+               DISPLAY "No se pudo abrir el archivo."
+
+           ELSE
+
+               PERFORM UNTIL WS-FIN-ARCHIVO = 'S'
+
+                   READ ARCHIVO-CUENTAS
+
+                       AT END
+                           MOVE 'S' TO WS-FIN-ARCHIVO
+
+                       NOT AT END
+
+                           IF CUENTA-ID = WS-CUENTA-BUSCAR
+
+                               MOVE 'S' TO WS-ENCONTRADA
+
+                               DISPLAY " "
+                               DISPLAY "Cuenta encontrada."
+                               DISPLAY "ID: " CUENTA-ID
+                               DISPLAY "Titular: "
+                                   CUENTA-NOMBRE
+                               DISPLAY "Saldo: $"
+                                   CUENTA-SALDO
+
+                           END-IF
+
+                   END-READ
+
+               END-PERFORM
+
+               CLOSE ARCHIVO-CUENTAS
+
+               IF WS-ENCONTRADA = 'N'
+                   DISPLAY "Cuenta no encontrada."
+               END-IF
+
+           END-IF.
+
+       3000-LISTAR-CUENTAS.
+
+           DISPLAY " "
+           DISPLAY "=== LISTADO DE CUENTAS ==="
+
+           MOVE 'N' TO WS-FIN-ARCHIVO
+
+           OPEN INPUT ARCHIVO-CUENTAS
+
+           IF WS-FILE-STATUS NOT = "00"
+
+               DISPLAY "No existen cuentas registradas."
+
+           ELSE
+
+               PERFORM UNTIL WS-FIN-ARCHIVO = 'S'
+
+                   READ ARCHIVO-CUENTAS
+
+                       AT END
+                           MOVE 'S' TO WS-FIN-ARCHIVO
+
+                       NOT AT END
+
+                           DISPLAY "--------------------------"
+                           DISPLAY "ID: " CUENTA-ID
+                           DISPLAY "Titular: "
+                               CUENTA-NOMBRE
+                           DISPLAY "Saldo: $"
+                               CUENTA-SALDO
+                           DISPLAY "Estado: "
+                               CUENTA-ACTIVA
+
+                   END-READ
+
+               END-PERFORM
+
+               CLOSE ARCHIVO-CUENTAS
+
+           END-IF.
